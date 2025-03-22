@@ -17,25 +17,7 @@ const MainMenu: React.FC = () => {
     >
       <div className="mt-8 md:mt-16 flex flex-col items-center justify-center">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 w-full max-w-6xl">
-          <PageTransition animationType="slide-left" delay={200}>
-            <div 
-              className="cyber-card flex flex-col items-center justify-center p-8 md:p-10 text-center cursor-pointer h-full"
-              onClick={() => navigate('/quiz')}
-            >
-              <div className="rounded-full bg-cyber-super-light p-4 mb-6 animate-pulse-slow">
-                <CheckSquare className="h-10 w-10 text-cyber" />
-              </div>
-              <h3 className="text-xl font-bold mb-2">Start Quiz</h3>
-              <p className="text-gray-600 mb-6">Test your sign language knowledge with interactive quizzes</p>
-              <Button
-                variant="primary"
-                onClick={() => navigate('/quiz')}
-                className="mt-auto"
-              >
-                Start Quiz
-              </Button>
-            </div>
-          </PageTransition>
+          
           
           <PageTransition animationType="slide-up" delay={300}>
             <div 
@@ -46,13 +28,32 @@ const MainMenu: React.FC = () => {
                 <BookOpen className="h-10 w-10 text-cyber" />
               </div>
               <h3 className="text-xl font-bold mb-2">Start Learning</h3>
-              <p className="text-gray-600 mb-6">Learn sign language alphabet with interactive tutorials</p>
+              <p className="text-gray-600 mb-6">Learn sign language alphabet with interactive Sequences</p>
               <Button
                 variant="primary"
                 onClick={() => navigate('/learning')}
                 className="mt-auto"
               >
                 Start Learning
+              </Button>
+            </div>
+          </PageTransition>
+          <PageTransition animationType="slide-left" delay={200}>
+            <div 
+              className="cyber-card flex flex-col items-center justify-center p-8 md:p-10 text-center cursor-pointer h-full"
+              onClick={() => navigate('/quiz')}
+            >
+              <div className="rounded-full bg-cyber-super-light p-4 mb-6 animate-pulse-slow">
+                <CheckSquare className="h-10 w-10 text-cyber" />
+              </div>
+              <h3 className="text-xl font-bold mb-2">Take Quiz</h3>
+              <p className="text-gray-600 mb-6">Test your sign language knowledge with interactive quizzes</p>
+              <Button
+                variant="primary"
+                onClick={() => navigate('/quiz')}
+                className="mt-auto"
+              >
+                Start Quiz
               </Button>
             </div>
           </PageTransition>
@@ -65,8 +66,8 @@ const MainMenu: React.FC = () => {
               <div className="rounded-full bg-cyber-super-light p-4 mb-6 animate-glow">
                 <Keyboard className="h-10 w-10 text-cyber" />
               </div>
-              <h3 className="text-xl font-bold mb-2">Keyboard Practice</h3>
-              <p className="text-gray-600 mb-6">Practice your sign language skills using keyboard inputs</p>
+              <h3 className="text-xl font-bold mb-2">Let's Communicate </h3>
+              <p className="text-gray-600 mb-6">Communicate through sign language using keyboards inputs</p>
               <Button
                 variant="primary"
                 onClick={() => navigate('/keyboard-practice')}
