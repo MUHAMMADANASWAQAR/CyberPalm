@@ -262,10 +262,11 @@ const Learning: React.FC = () => {
                   <h4 className="font-medium text-sm text-gray-700 mb-2">Gesture Tips</h4>
                   <PageTransition animationType="slide-left" staggerChildren staggerDelay={100}>
                     <ul className="list-disc list-inside text-sm text-gray-600 space-y-1">
-                      <li className="transition-all duration-300 hover:translate-x-1 hover:text-cyber">Ensure your hand is fully visible in the frame</li>
-                      <li className="transition-all duration-300 hover:translate-x-1 hover:text-cyber">Position your hand against a plain background</li>
-                      <li className="transition-all duration-300 hover:translate-x-1 hover:text-cyber">Make sure the area is well lit</li>
-                      <li className="transition-all duration-300 hover:translate-x-1 hover:text-cyber">Hold the gesture steady for accurate matching</li>
+                      <li className="transition-all duration-300 hover:translate-x-1 hover:text-cyber">Match the shown alphabet with your glove gesture.</li>
+                      <li className="transition-all duration-300 hover:translate-x-1 hover:text-cyber">Ensure your glove's sensors are properly fitted and responsive.</li>
+                      <li className="transition-all duration-300 hover:translate-x-1 hover:text-cyber">Keep your hand steady for accurate detection.</li>
+                      <li className="transition-all duration-300 hover:translate-x-1 hover:text-cyber">If correct, the next letter will appear automatically.</li>
+                      <li className="transition-all duration-300 hover:translate-x-1 hover:text-cyber">If incorrect, a "Try Again" message will pop up.</li>
                     </ul>
                   </PageTransition>
                 </div>
