@@ -1,60 +1,39 @@
-
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Layout from '@/components/Layout';
 import PageTransition from '@/components/PageTransition';
-import Button from '@/components/Button';
-import { useToast } from '@/hooks/use-toast';
-import { Keyboard, Key, ArrowRight, CheckCircle, XCircle } from 'lucide-react';
 
 const KeyboardPractice: React.FC = () => {
-  const [currentLetter, setCurrentLetter] = useState('A');
-  const [userInput, setUserInput] = useState('');
-  const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
-  const [showResult, setShowResult] = useState(false);
-  const [score, setScore] = useState(0);
-  const { toast } = useToast();
-  
-  const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
-  
-  const handleKeyDown = (e: KeyboardEvent) => {
-    const key = e.key.toUpperCase();
-    if (alphabet.includes(key)) {
-      setUserInput(key);
-      checkAnswer(key);
-    }
-  };
-  
-  const checkAnswer = (input: string) => {
-    const correct = input === currentLetter;
-    setIsCorrect(correct);
-    setShowResult(true);
-    
-    setTimeout(() => {
-      setShowResult(false);
-      if (correct) {
-        setScore(prev => prev + 1);
-        const nextIndex = Math.floor(Math.random() * alphabet.length);
-        setCurrentLetter(alphabet[nextIndex]);
-        toast({
-          title: "Correct!",
-          description: "Great job! Moving to next letter.",
-        });
-      } else {
-        toast({
-          title: "Incorrect",
-          description: `The correct answer is ${currentLetter}`,
-          variant: "destructive",
-        });
-      }
-      setUserInput('');
-    }, 1500);
-  };
-  
-  useEffect(() => {
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [currentLetter]);
-  
+  const imageArray: string[] = [
+    'https://static.thenounproject.com/png/7407924-200.png',
+    'https://static.thenounproject.com/png/7407922-200.png',
+    'https://static.thenounproject.com/png/7407908-200.png',
+    'https://static.thenounproject.com/png/7407925-200.png',
+    'https://static.thenounproject.com/png/7407904-200.png',
+    'https://static.thenounproject.com/png/7407909-200.png',
+    'https://static.thenounproject.com/png/7407900-200.png',
+    'https://static.thenounproject.com/png/7407910-200.png',
+    'https://static.thenounproject.com/png/7407906-200.png',
+    'https://static.thenounproject.com/png/7407905-200.png',
+    'https://static.thenounproject.com/png/7407907-200.png',
+    'https://static.thenounproject.com/png/7407920-200.png',
+    'https://static.thenounproject.com/png/7407914-200.png',
+    'https://static.thenounproject.com/png/7407901-200.png',
+    'https://static.thenounproject.com/png/7407903-200.png',
+    'https://static.thenounproject.com/png/7407911-200.png',
+    'https://static.thenounproject.com/png/7407917-200.png',
+    'https://static.thenounproject.com/png/7407915-200.png',
+    'https://static.thenounproject.com/png/7407919-200.png',
+    'https://static.thenounproject.com/png/7407921-200.png',
+    'https://static.thenounproject.com/png/7407912-200.png',
+    'https://static.thenounproject.com/png/7407918-200.png',
+    'https://static.thenounproject.com/png/7407913-200.png',
+    'https://static.thenounproject.com/png/7407923-200.png',
+    'https://static.thenounproject.com/png/7407916-200.png',
+    'https://static.thenounproject.com/png/7407902-200.png',
+  ];
+
+  const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+
   return (
     <Layout
       title="Keyboard Practice"
@@ -62,50 +41,49 @@ const KeyboardPractice: React.FC = () => {
       showBackButton
       backTo="/main-menu"
       backgroundEffect="dots"
+      className="bg-gradient-to-br from-cyber-super-light via-background to-background"
     >
-      <div className="mt-8 flex flex-col items-center">
+      <div className="mt-10 flex flex-col items-center">
         <PageTransition animationType="fade">
-          <div className="glass-panel p-8 md:p-10 w-full max-w-md mx-auto">
-            <div className="text-center mb-8">
-              <div className="text-6xl md:text-8xl font-bold text-cyber animate-float">{currentLetter}</div>
-              <p className="mt-4 text-gray-600">Press this key on your keyboard</p>
-            </div>
-            
-            <div className="relative h-40 mb-8 border-2 border-cyber/30 rounded-xl flex items-center justify-center bg-white/50 backdrop-blur-sm">
-              {showResult ? (
-                <div className={`absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 backdrop-blur-sm
-                  ${isCorrect ? 'bg-green-500 bg-opacity-20' : 'bg-red-500 bg-opacity-20'} animate-fade-in`}>
-                  {isCorrect ? (
-                    <CheckCircle className="h-20 w-20 text-green-500 animate-scale-in" />
-                  ) : (
-                    <XCircle className="h-20 w-20 text-red-500 animate-scale-in" />
-                  )}
+          <div className="flex justify-center mb-6">
+            <div className="relative group">
+              <div className="absolute -inset-1 bg-gradient-cyber rounded-lg blur-md opacity-75 group-hover:opacity-100 transition duration-1000"></div>
+              <div className="relative aspect-square max-w-sm overflow-hidden rounded-lg shadow-lg bg-white/90 backdrop-blur-sm h-[250px] w-[250px] flex items-center justify-center">
+                {selectedIndex !== null ? (
+                  <div className="text-[8rem] font-bold text-cyber animate-float">
+                    {String.fromCharCode(65 + selectedIndex)}
+                  </div>
+                ) : (
+                  <div className="text-6xl text-gray-400 animate-pulse">?</div>
+                )}
+              </div>
+
+              {selectedIndex !== null && (
+                <div className="absolute top-4 left-4">
+                  <div className="bg-black/30 backdrop-blur-sm rounded-lg px-4 py-2 text-white font-bold text-lg animate-pulse-slow">
+                    Letter {String.fromCharCode(65 + selectedIndex)}
+                  </div>
                 </div>
-              ) : (
-                <div className="text-8xl font-bold text-gray-300">{userInput || '?'}</div>
               )}
-            </div>
-            
-            <div className="text-center">
-              <p className="text-lg font-medium">Score: <span className="text-cyber">{score}</span></p>
             </div>
           </div>
         </PageTransition>
-        
+
         <PageTransition animationType="slide-up" delay={300}>
-          <div className="mt-12 w-full max-w-3xl mx-auto">
-            <div className="flex flex-wrap justify-center gap-2">
-              {alphabet.map((letter, index) => (
-                <div 
-                  key={letter}
-                  className={`h-12 w-12 md:h-14 md:w-14 rounded-lg flex items-center justify-center font-medium border-2
-                    ${letter === userInput 
-                      ? 'bg-cyber text-white border-cyber animate-pulse' 
-                      : 'bg-white text-gray-700 border-gray-200'}
-                    transition-all duration-300 transform hover:scale-110`}
+          <div className="mt-16 w-full max-w-3xl mx-auto">
+            <div className="flex flex-wrap justify-center gap-3">
+              {imageArray.map((img, index) => (
+                <button
+                  key={index}
+                  onClick={() => setSelectedIndex(index)}
+                  className="h-14 w-14 md:h-16 md:w-16 rounded-lg border-2 border-gray-300 bg-gray-50 hover:scale-105 transition-transform duration-200 flex items-center justify-center hover:bg-blue-400"
                 >
-                  {letter}
-                </div>
+                  <img
+                    src={img}
+                    alt={`Sign for ${String.fromCharCode(65 + index)}`}
+                    className="h-8 w-8 object-contain"
+                  />
+                </button>
               ))}
             </div>
           </div>

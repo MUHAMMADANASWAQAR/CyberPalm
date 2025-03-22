@@ -136,6 +136,7 @@ const Quiz: React.FC = () => {
       showBackButton
       backTo="/main-menu"
       backgroundEffect="dots"
+      className="bg-gradient-to-br from-cyber-super-light via-background to-background"
     >
       <div className="mt-8 flex flex-col items-center w-full">
         <div className="w-full max-w-2xl mx-auto px-4 sm:px-6">
