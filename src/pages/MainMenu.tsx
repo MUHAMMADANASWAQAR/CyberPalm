@@ -28,7 +28,7 @@ const MainMenu: React.FC = () => {
                 <BookOpen className="h-10 w-10 text-cyber" />
               </div>
               <h3 className="text-xl font-bold mb-2">Start Learning</h3>
-              <p className="text-gray-600 mb-6">Learn sign language alphabet with interactive Sequences</p>
+              <p className="text-gray-600 mb-6">Learn sign language alphabet with interactive sequences</p>
               <Button
                 variant="primary"
                 onClick={() => navigate('/learning')}
@@ -73,7 +73,7 @@ const MainMenu: React.FC = () => {
                 onClick={() => navigate('/keyboard-practice')}
                 className="mt-auto"
               >
-                Start Practice
+                Communicate Now
               </Button>
             </div>
           </PageTransition>

@@ -60,7 +60,7 @@ const LoginForm: React.FC = () => {
                   name="username"
                   type="text"
                   autoComplete="username"
-                  required
+               
                   className="input-cyber pl-10"
                   placeholder="Enter your username"
                   value={username}
@@ -82,7 +82,7 @@ const LoginForm: React.FC = () => {
                   name="password"
                   type="password"
                   autoComplete="current-password"
-                  required
+                  
                   className="input-cyber pl-10"
                   placeholder="Enter your password"
                   value={password}
