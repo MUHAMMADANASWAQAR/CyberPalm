@@ -32,12 +32,37 @@ const KeyboardPractice: React.FC = () => {
     'https://static.thenounproject.com/png/7407902-200.png',
   ];
 
-  const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+  const [text, setText] = useState<string>('');
+
+  const handleKeyPress = (char: string) => {
+    setText(prevText => prevText + char);
+  };
+
+  const handleBackspace = () => {
+    setText(prevText => prevText.slice(0, -1));
+  };
+
+  const handleClear = () => {
+    setText('');
+  };
+
+  const handleNextLine = () => {
+    setText(prevText => prevText + '\n');
+  };
+
+  const handleSpeech = () => {
+    if ('speechSynthesis' in window) {
+      const utterance = new SpeechSynthesisUtterance(text);
+      window.speechSynthesis.speak(utterance);
+    } else {
+      alert('Sorry, your browser does not support text-to-speech.');
+    }
+  };
 
   return (
     <Layout
-      title="Keyboard Practice"
-      subtitle="Press the key that matches the shown sign language gesture"
+      title="Let's Commmunicate"
+      subtitle="Communicte through sign language using keyboard inputs  "
       showBackButton
       backTo="/main-menu"
       backgroundEffect="dots"
@@ -48,23 +73,11 @@ const KeyboardPractice: React.FC = () => {
           <div className="flex justify-center mb-6">
             <div className="relative group">
               <div className="absolute -inset-1 bg-gradient-cyber rounded-lg blur-md opacity-75 group-hover:opacity-100 transition duration-1000"></div>
-              <div className="relative aspect-square max-w-sm overflow-hidden rounded-lg shadow-lg bg-white/90 backdrop-blur-sm h-[250px] w-[250px] flex items-center justify-center">
-                {selectedIndex !== null ? (
-                  <div className="text-[8rem] font-bold text-cyber animate-float">
-                    {String.fromCharCode(65 + selectedIndex)}
-                  </div>
-                ) : (
-                  <div className="text-6xl text-gray-400 animate-pulse">?</div>
-                )}
-              </div>
-
-              {selectedIndex !== null && (
-                <div className="absolute top-4 left-4">
-                  <div className="bg-black/30 backdrop-blur-sm rounded-lg px-4 py-2 text-white font-bold text-lg animate-pulse-slow">
-                    Letter {String.fromCharCode(65 + selectedIndex)}
-                  </div>
+              <div className="relative max-w-3xl overflow-hidden rounded-lg shadow-lg bg-white/90 backdrop-blur-sm h-[500px] w-[700px] flex flex-col items-start justify-start p-4">
+                <div className="text-[1.5rem] font-bold text-cyber animate-float break-words" style={{ overflowWrap: 'break-word', whiteSpace: 'pre-wrap' }}>
+                  {text}
                 </div>
-              )}
+              </div>
             </div>
           </div>
         </PageTransition>
@@ -75,7 +88,7 @@ const KeyboardPractice: React.FC = () => {
               {imageArray.map((img, index) => (
                 <button
                   key={index}
-                  onClick={() => setSelectedIndex(index)}
+                  onClick={() => handleKeyPress(String.fromCharCode(65 + index))}
                   className="h-14 w-14 md:h-16 md:w-16 rounded-lg border-2 border-gray-300 bg-gray-50 hover:scale-105 transition-transform duration-200 flex items-center justify-center hover:bg-blue-400"
                 >
                   <img
@@ -85,6 +98,38 @@ const KeyboardPractice: React.FC = () => {
                   />
                 </button>
               ))}
+              <button
+                onClick={handleBackspace}
+                className="h-14 w-28 md:h-16 md:w-28 rounded-lg border-2 border-gray-300 bg-gray-50 hover:scale-105 transition-transform duration-200 flex items-center justify-center hover:bg-red-400"
+              >
+                Backspace
+              </button>
+              <button
+                onClick={handleClear}
+                className="h-14 w-28 md:h-16 md:w-28 rounded-lg border-2 border-gray-300 bg-gray-50 hover:scale-105 transition-transform duration-200 flex items-center justify-center hover:bg-red-400"
+              >
+                Clear
+              </button>
+              <button
+                onClick={handleNextLine}
+                className="h-14 w-28 md:h-16 md:w-28 rounded-lg border-2 border-gray-300 bg-gray-50 hover:scale-105 transition-transform duration-200 flex items-center justify-center hover:bg-blue-400"
+              >
+                Next Line
+              </button>
+              <button
+                onClick={handleSpeech}
+                className="h-14 w-14 md:h-16 md:w-16 rounded-lg border-2 border-gray-300 bg-gray-50 hover:scale-105 transition-transform duration-200 flex items-center justify-center hover:bg-yellow-400"
+              >
+                🎤
+              </button>
+              <div className="w-full flex justify-center mt-3">
+                <button
+                  onClick={() => handleKeyPress(' ')}
+                  className="h-14 w-60 md:h-16 md:w-96 rounded-lg border-2 border-gray-300 bg-gray-50 hover:scale-105 transition-transform duration-200 flex items-center justify-center hover:bg-green-400"
+                >
+                  Space
+                </button>
+              </div>
             </div>
           </div>
         </PageTransition>
